@@ -24,10 +24,10 @@ class Spidey_V2:
         self._state = self.default_state
         self._previous_state = self.default_state
 
-        self._default_servo_positions = [100, 80, 80,
-                                         100, 80, 80,
-                                         100, 80, 80,
-                                         100, 80, 80]
+        self._default_servo_positions = [100, 75, 85,
+                                         100, 80, 105,
+                                         100, 75, 85,
+                                         90, 80, 100]
                                         
         
         self._joint_to_channel_mapping = [6,  7,  8,
@@ -89,16 +89,17 @@ class Spidey_V2:
                 flag = False
             else:
                 for i in range(12):
-                    if servo_position[i] < current_servo_commands[i]-2:
+                    if servo_position[i] < current_servo_commands[i]-3:
                         servo_position[i] += 3
-                    elif servo_position[i] > current_servo_commands[i]+2:
+                    elif servo_position[i] > current_servo_commands[i]+3:
                         servo_position[i] -= 3
                     else:
                         servo_position[i] = current_servo_commands[i]
         
                 for i in range(12):
-                    self._servos.servo[self._joint_to_channel_mapping[i]].angle = servo_position[i]
                     print(i, "asdasd", servo_position[i])
+                    print(i, "fafafa", current_servo_commands[i])
+                    self._servos.servo[self._joint_to_channel_mapping[i]].angle = servo_position[i]
                 time.sleep(time_delay)
             
     
