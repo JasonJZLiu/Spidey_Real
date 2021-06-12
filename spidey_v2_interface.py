@@ -25,8 +25,8 @@ class Spidey_V2:
         self._previous_state = self.default_state
 
         self._default_servo_positions = [100, 80, 80,
-                                         100, 80, 100,
-                                         100, 80, 100,
+                                         100, 80, 80,
+                                         100, 80, 80,
                                          100, 80, 80]
                                         
         
@@ -98,6 +98,7 @@ class Spidey_V2:
         
                 for i in range(12):
                     self._servos.servo[self._joint_to_channel_mapping[i]].angle = servo_position[i]
+                    print(i, "asdasd", servo_position[i])
                 time.sleep(time_delay)
             
     
