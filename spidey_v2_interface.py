@@ -22,6 +22,7 @@ class Spidey_V2:
                               0, 0, 0,
                               0, 0, 0]
         self._state = self.default_state
+        self._previous_state = self.default_state
 
         self._default_servo_positions = [90, 90, 90,
                                          90, 90, 90,
@@ -50,22 +51,7 @@ class Spidey_V2:
         """
         return self._state
     
-    @property
-    def servo_positions(self):
-        """
-        Mapping from joint space to actuator space
-        :return: The current servo positions
-        """
-        servo_positions = self._state.copy()
-        for i in [1, 4, 7, 10]:
-            servo_positions[i] *= -1
-        for i in range(12):
-            servo_positions[i] += self._default_servo_positions[i]
-            if servo_positions[i] >180:
-                servo_positions[i] = 180
-            elif servo_positions[i] < 0:
-                servo_positions[i] = 0
-        return servo_positions
+    
 
 
     '''
@@ -76,7 +62,47 @@ class Spidey_V2:
         Updates the state internally
         :param position_cmd: Joint position command in the joint space in degrees
         """
+        self._previous_state = self._state.copy()
         self._state = position_cmd
+    
+
+    def _servo_positions(self, state):
+        """
+        Mapping from joint space to actuator space
+        :return: The current servo positions
+        """
+        servo_positions = state.copy()
+        for i in [1, 4, 7, 10]:
+            servo_positions[i] *= -1
+        for i in range(12):
+            servo_positions[i] += self._default_servo_positions[i]
+            if servo_positions[i] >180:
+                servo_positions[i] = 180
+            elif servo_positions[i] < 0:
+                servo_positions[i] = 0
+        return servo_positions
+    
+
+    def _apply_servo_commands(self, current_servo_commands, previous_servo_commands, time_delay):
+        servo_position = previous_servo_commands.copy()
+        flag = True
+
+        while flag:
+            if servo_position == current_servo_commands:
+                flag = False
+            else:
+                for i in range(12):
+                    if servo_position[i] < current_servo_commands[i]-2:
+                        servo_position[i] += 3
+                    elif servo_position[i] > current_servo_commands[i]+2:
+                        servo_position[i] -= 3
+                    else:
+                        servo_position[i] = current_servo_commands[i]
+        
+                for i in range(12):
+                    self._servos.servo[self._joint_to_channel_mapping[i]].angle = servo_position[i]
+                time.sleep(time_delay)
+            
     
 
     '''
@@ -88,8 +114,9 @@ class Spidey_V2:
         :param position_cmd: Joint position command in the joint space in degrees
         """
         self._update(position_cmd)
-        servo_commands = self.servo_positions
-
-        for i in range(12):
-            self._servos.servo[self._joint_to_channel_mapping[i]].angle = servo_commands[i]
+        current_servo_commands = self._servo_positions(self._state)
+        previous_servo_commands = self._servo_positions(self._previous_state)
+        
+        time_delay = 0.025
+        self._apply_servo_commands(current_servo_commands, previous_servo_commands, time_delay)
     
