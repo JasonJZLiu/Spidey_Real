@@ -5,7 +5,7 @@
 """
 
 from adafruit_servokit import ServoKit
-
+import time
 
 class Spidey_V2:
     """
