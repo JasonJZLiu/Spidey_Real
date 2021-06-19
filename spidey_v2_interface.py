@@ -116,6 +116,6 @@ class Spidey_V2:
         current_servo_commands = self._servo_positions(self._state)
         previous_servo_commands = self._servo_positions(self._previous_state)
 
-        time_delay = 0.025
+        time_delay = 0#0.025
         self._apply_servo_commands(current_servo_commands, previous_servo_commands, time_delay)
     

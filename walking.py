@@ -9,7 +9,7 @@ def set_init_pose(spidey_interface):
     
     for i in range(len(cmds)):
         spidey_interface.apply_command(cmds[i])
-        time.sleep(0.2)
+        #time.sleep(0.2)
 
 
 def forward(spidey_interface):
@@ -19,7 +19,7 @@ def forward(spidey_interface):
 
     for i in range(len(cmds)):
         spidey_interface.apply_command(cmds[i])
-        time.sleep(0.2)
+        #time.sleep(0.2)
 
 
 
