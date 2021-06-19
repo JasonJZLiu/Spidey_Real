@@ -24,10 +24,10 @@ class Spidey_V2:
         self._state = self.default_state
         self._previous_state = self.default_state
 
-        self._default_servo_positions = [90, 130, 90,
-                                         90, 130, 90,
-                                         90, 130, 90,
-                                         90, 130, 90]
+        self._default_servo_positions = [100, 130, 80,
+                                         100, 130, 80,
+                                         90, 130, 80,
+                                         90, 130, 80]
                                         
         
         self._joint_to_channel_mapping = [6,  7,  8,
@@ -116,6 +116,6 @@ class Spidey_V2:
         current_servo_commands = self._servo_positions(self._state)
         previous_servo_commands = self._servo_positions(self._previous_state)
 
-        time_delay = 0.0#0.025
+        time_delay = 0.01#0.025
         self._apply_servo_commands(current_servo_commands, previous_servo_commands, time_delay)
     
