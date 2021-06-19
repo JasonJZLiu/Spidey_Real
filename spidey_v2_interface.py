@@ -24,10 +24,10 @@ class Spidey_V2:
         self._state = self.default_state
         self._previous_state = self.default_state
 
-        self._default_servo_positions = [90, 135, 90,
-                                         90, 135, 90,
-                                         90, 135, 90,
-                                         90, 135, 90]
+        self._default_servo_positions = [90, 130, 90,
+                                         90, 130, 90,
+                                         90, 130, 90,
+                                         90, 130, 90]
                                         
         
         self._joint_to_channel_mapping = [6,  7,  8,
