@@ -1,4 +1,4 @@
-from spidey_v2_interface import Spidey_V2
+from spidey_interface import Spidey
 import time, pickle
 
 
@@ -24,7 +24,7 @@ def forward(spidey_interface):
 
 
 if __name__ == "__main__":
-    spidey_interface = Spidey_V2()
+    spidey_interface = Spidey()
     set_init_pose(spidey_interface)
     input("wait")
     forward(spidey_interface)
