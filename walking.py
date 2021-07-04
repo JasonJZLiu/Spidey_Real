@@ -27,7 +27,8 @@ if __name__ == "__main__":
     spidey_interface = Spidey()
     set_init_pose(spidey_interface)
     input("wait")
-    forward(spidey_interface)
+    while True:
+        forward(spidey_interface)
 
 
 
