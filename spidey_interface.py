@@ -97,8 +97,8 @@ class Spidey:
                         servo_position[i] = current_servo_commands[i]
         
                 for i in range(12):
-                    print(i, "asdasd", servo_position[i])
-                    print(i, "fafafa", current_servo_commands[i])
+                    print(i, "Servo Position: ", servo_position[i])
+                    print(i, "Current Servo Command: ", current_servo_commands[i])
                     self._servos.servo[self._joint_to_channel_mapping[i]].angle = servo_position[i]
                 time.sleep(time_delay)
             
