@@ -37,7 +37,8 @@ if __name__ == "__main__":
     set_init_pose(spidey_interface)
     input("wait")
     
-    turning_left(spidey_interface)
+    while True:
+        turning_left(spidey_interface)
 
     # while True:
     #     forward(spidey_interface)
